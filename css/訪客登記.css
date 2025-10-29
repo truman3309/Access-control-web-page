@@ -1,0 +1,126 @@
+/* === 🌐 全域樣式設定 === */
+body {
+  font-family: Arial, sans-serif;      /* 頁面字體設定 */
+  margin: 20px;                        /* 頁面邊界 */
+  background-color: #f4f4f9;           /* 背景色 */
+}
+
+/* === 📦 主要容器區塊 === */
+.container {
+  max-width: 600px;                    /* 最大寬度 */
+  margin: auto;                        /* 置中 */
+  padding: 30px;                       /* 內距 */
+  border: 1px solid #e0e0e0;           /* 淺灰色邊框 */
+  border-radius: 10px;                 /* 圓角 */
+  background-color: #ffffff;           /* 白色背景 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 淡陰影 */
+}
+
+/* === 🧭 頁首與標題 === */
+h2 {
+  text-align: center;                  /* 置中 */
+  color: #007bff;                      /* 主題藍色 */
+  margin-bottom: 25px;                 /* 下方留白 */
+}
+
+/* === 📑 區塊設定（例如表單或子區域） === */
+.section {
+  margin-bottom: 20px;                 /* 下方留白 */
+  padding: 20px;                       /* 內距 */
+  border: 1px solid #dcdcdc;           /* 邊框 */
+  border-radius: 8px;                  /* 圓角 */
+  background-color: #f9f9f9;           /* 淺灰背景 */
+}
+
+/* 區塊內的標題 */
+.section h3 {
+  color: #0056b3;                      /* 深藍色標題 */
+  margin-top: 0;                       /* 移除上方空白 */
+  margin-bottom: 15px;                 /* 下方留白 */
+}
+
+/* === 🏷️ 表單標籤與輸入欄位 === */
+label {
+  display: block;                      /* 每個標籤單獨一行 */
+  margin-bottom: 8px;                  /* 與下方元素間距 */
+  font-weight: bold;                   /* 粗體文字 */
+  color: #555;                         /* 深灰文字 */
+}
+
+input[type="text"] {
+  width: calc(100% - 22px);            /* 避免邊框與內距影響寬度 */
+  padding: 10px;                       /* 內距 */
+  margin-bottom: 15px;                 /* 下方留白 */
+  border: 1px solid #ccc;              /* 邊框顏色 */
+  border-radius: 5px;                  /* 圓角 */
+  box-sizing: border-box;              /* 包含邊框與內距在總寬高內 */
+}
+
+/* === ✅ 提交按鈕樣式 === */
+button {
+  width: 100%;                         /* 滿版寬度 */
+  padding: 12px 25px;                  /* 內距 */
+  font-size: 1.05em;                   /* 稍大字體 */
+  color: white;                        /* 白色文字 */
+  background-color: #28a745;           /* 綠色背景 */
+  border: none;                        /* 無邊框 */
+  border-radius: 5px;                  /* 圓角 */
+  cursor: pointer;                     /* 滑鼠變手指 */
+  transition: background-color 0.3s ease; /* 滑順變色效果 */
+}
+
+/* 滑鼠移過按鈕時 */
+button:hover {
+  background-color: #218838;           /* 深綠色 */
+}
+
+/* === 🔹 導覽列區塊 === */
+nav {
+  display: flex;                       /* 使用 flexbox 排版 */
+  justify-content: center;             /* 導覽按鈕置中 */
+  background-color: #0056b3;           /* 深藍底色 */
+}
+
+/* 導覽列中的按鈕樣式 */
+nav button {
+  background: none;                    /* 移除背景 */
+  border: none;                        /* 無邊框 */
+  color: white;                        /* 白色文字 */
+  padding: 15px 20px;                  /* 內距 */
+  font-size: 1em;                      /* 標準字體大小 */
+  cursor: pointer;                     /* 滑鼠變成手指 */
+}
+
+/* 滑鼠移過導覽按鈕 */
+nav button:hover {
+  background-color: #003d80;           /* 深色背景 */
+}
+
+/* 被選中的導覽按鈕樣式 */
+nav button.active {
+  background-color: #003d80;           /* 同樣深藍色背景 */
+  font-weight: bold;                   /* 加粗文字 */
+}
+
+/* === 💬 訪客訊息提示框 === */
+#visitorMessage {
+  margin-top: 20px;                    /* 與上方間距 */
+  padding: 10px;                       /* 內距 */
+  border-radius: 5px;                  /* 圓角 */
+  text-align: center;                  /* 文字置中 */
+  font-weight: bold;                   /* 粗體字 */
+}
+
+/* 成功提示樣式 */
+#visitorMessage.success {
+  background-color: #d4edda;           /* 淺綠背景 */
+  color: #155724;                      /* 深綠文字 */
+  border-color: #c3e6cb;               /* 綠色邊框 */
+}
+
+/* 錯誤提示樣式 */
+#visitorMessage.error {
+  background-color: #f8d7da;           /* 淺紅背景 */
+  color: #721c24;                      /* 深紅文字 */
+  border-color: #f5c6cb;               /* 紅色邊框 */
+}
