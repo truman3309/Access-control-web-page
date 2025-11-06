@@ -49,3 +49,31 @@ document.addEventListener('DOMContentLoaded', fetchUID);
 document.getElementById('learnMore').addEventListener('click', () => {
   document.querySelector('[data-page="intro"]').click();
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const loginLink = document.querySelector(".login-link"); // 導覽列登入按鈕
+  const nameDisplay = document.getElementById("userNameDisplay"); // 使用者名稱顯示區
+  const userName = localStorage.getItem("userName"); // 從 localStorage 取得登入名稱
+
+  if (userName) {
+    // ✅ 已登入 → 顯示名稱、隱藏登入按鈕
+    if (loginLink) loginLink.style.display = "none";
+
+    if (nameDisplay) {
+      nameDisplay.textContent = userName;
+      nameDisplay.style.display = "inline";
+      nameDisplay.style.color = "#ffdf5d";
+      nameDisplay.style.fontWeight = "bold";
+      nameDisplay.style.cursor = "pointer";
+      nameDisplay.title = "查看個人資料";
+
+      // 點擊名稱 → 進入個人資料頁面
+      nameDisplay.addEventListener("click", () => {
+        window.location.href = "個人資料.html";
+      });
+    }
+  } else {
+    // ❌ 未登入 → 顯示登入按鈕，隱藏名稱
+    if (loginLink) loginLink.style.display = "inline";
+    if (nameDisplay) nameDisplay.style.display = "none";
+  }
+});
