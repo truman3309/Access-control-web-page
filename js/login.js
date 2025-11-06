@@ -37,35 +37,31 @@ function handleLogin(event) {
   return false;
 }
 
-
-// === 🟡 登入狀態檢查與顯示名稱 ===
+// === 🟡 登入狀態檢查與顯示名稱（主頁共用） ===
 document.addEventListener("DOMContentLoaded", () => {
-  const loginBtn = document.querySelector('a[href="登入.html"]'); // 主頁的登入連結
-  const queryLink = document.querySelector('a[href="查詢.html"]'); // 查詢連結
-  const userName = localStorage.getItem("userName"); // 從 localStorage 抓登入者名稱
+  const loginLink = document.querySelector(".login-link"); // 導覽列登入按鈕
+  const nameDisplay = document.getElementById("userNameDisplay"); // 顯示使用者名稱的 <span>
+  const userName = localStorage.getItem("userName"); // 抓取登入使用者名稱
 
-  // ✅ 若已登入
   if (userName) {
-    // 隱藏登入按鈕
-    if (loginBtn) {
-      loginBtn.style.display = "none";
-    }
-
-    // 在查詢連結後顯示使用者名稱
-    if (queryLink) {
-      const nameDisplay = document.createElement("a");
+    // ✅ 已登入：顯示名稱、隱藏登入按鈕
+    if (loginLink) loginLink.style.display = "none";
+    if (nameDisplay) {
       nameDisplay.textContent = userName;
-      nameDisplay.classList.add("user-name");
-      nameDisplay.href = "個人資料.html";
-      nameDisplay.style.marginLeft = "12px";
-      nameDisplay.style.fontWeight = "bold";
+      nameDisplay.style.display = "inline";
       nameDisplay.style.color = "#ffdf5d";
+      nameDisplay.style.fontWeight = "bold";
       nameDisplay.style.cursor = "pointer";
       nameDisplay.title = "查看個人資料";
 
-      queryLink.insertAdjacentElement("afterend", nameDisplay);
+      // 點擊名稱 → 進入個人資料頁面
+      nameDisplay.addEventListener("click", () => {
+        window.location.href = "個人資料.html";
+      });
     }
   } else {
-    console.log("尚未登入");
+    // ❌ 未登入：顯示登入按鈕，隱藏名稱
+    if (loginLink) loginLink.style.display = "inline";
+    if (nameDisplay) nameDisplay.style.display = "none";
   }
 });
