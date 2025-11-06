@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 點擊名稱 → 進入個人資料頁面
       nameDisplay.addEventListener("click", () => {
-        window.location.href = "個人資料.html";
+        window.location.href = "個人基本資料.html";
       });
     }
   } else {
