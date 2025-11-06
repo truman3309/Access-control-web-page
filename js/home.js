@@ -1,23 +1,52 @@
-// === 導航切換 ===
-document.querySelectorAll('.nav-links a[data-page]').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const pageId = link.getAttribute('data-page');
+// ==============================
+// main.js － 主頁腳本（穩定版）
+// ==============================
 
-    // 切換 active 樣式
-    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-    link.classList.add('active');
+document.addEventListener("DOMContentLoaded", () => {
+  // === 導航切換（事件委派） ===
+  const nav = document.querySelector(".nav-links");
+  if (nav) {
+    nav.addEventListener("click", (e) => {
+      const a = e.target.closest('a[data-page]');
+      if (!a) return;
 
-    // 顯示對應頁面
-    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-  });
+      e.preventDefault();
+      const pageId = a.getAttribute("data-page");
+      if (!pageId) return;
+
+      // 切換 active 樣式
+      nav.querySelectorAll("a").forEach((el) => el.classList.remove("active"));
+      a.classList.add("active");
+
+      // 顯示對應頁面
+      document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) targetPage.classList.add("active");
+    });
+  }
+
+  // === 綁定按鈕 ===
+  const refreshBtn = document.getElementById("refreshUID");
+  if (refreshBtn) refreshBtn.addEventListener("click", fetchUID);
+
+  const learnBtn = document.getElementById("learnMore");
+  if (learnBtn) {
+    learnBtn.addEventListener("click", () => {
+      const introLink = document.querySelector('[data-page="intro"]');
+      if (introLink) introLink.click();
+    });
+  }
+
+  // 初始讀取 UID / 登入狀態 UI
+  fetchUID();
+  updateAuthUI();
 });
 
 // === 模擬取得 UID 資料 ===
 async function fetchUID() {
-  const uidEl = document.getElementById('lastUID');
-  const statusEl = document.getElementById('statusText');
+  const uidEl = document.getElementById("lastUID");
+  const statusEl = document.getElementById("statusText");
+  if (!uidEl || !statusEl) return;
 
   try {
     statusEl.textContent = "連線中...";
@@ -28,7 +57,7 @@ async function fetchUID() {
     // const data = await res.json();
 
     // 模擬 API 回傳
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 800));
     const data = { uid: "04A3B7C129" };
 
     uidEl.textContent = data.uid;
@@ -38,26 +67,22 @@ async function fetchUID() {
     uidEl.textContent = "未讀取";
     statusEl.textContent = "連線錯誤";
     statusEl.className = "status error";
+    console.error("fetchUID error:", err);
   }
 }
 
-// === 綁定按鈕 ===
-document.getElementById('refreshUID').addEventListener('click', fetchUID);
-document.addEventListener('DOMContentLoaded', fetchUID);
+// === 登入狀態檢查與顯示名稱 ===
+function updateAuthUI() {
+  const loginLink = document.querySelector(".login-link");        // 導覽列「登入」按鈕
+  const nameDisplay = document.getElementById("userNameDisplay"); // 顯示使用者名稱的 <span>
+  const userName = localStorage.getItem("userName");
 
-// === 按鈕事件 ===
-document.getElementById('learnMore').addEventListener('click', () => {
-  document.querySelector('[data-page="intro"]').click();
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const loginLink = document.querySelector(".login-link"); // 導覽列登入按鈕
-  const nameDisplay = document.getElementById("userNameDisplay"); // 使用者名稱顯示區
-  const userName = localStorage.getItem("userName"); // 從 localStorage 取得登入名稱
+  // 未配置對應元素就不處理
+  if (!loginLink && !nameDisplay) return;
 
   if (userName) {
-    // ✅ 已登入 → 顯示名稱、隱藏登入按鈕
+    // ✅ 已登入：顯示名稱、隱藏登入按鈕
     if (loginLink) loginLink.style.display = "none";
-
     if (nameDisplay) {
       nameDisplay.textContent = userName;
       nameDisplay.style.display = "inline";
@@ -65,15 +90,12 @@ document.addEventListener("DOMContentLoaded", () => {
       nameDisplay.style.fontWeight = "bold";
       nameDisplay.style.cursor = "pointer";
       nameDisplay.title = "查看個人資料";
-
-      // 點擊名稱 → 進入個人資料頁面
-      nameDisplay.addEventListener("click", () => {
-        window.location.href = "個人資料.html";
-      });
+      // 避免重複綁定
+      nameDisplay.onclick = () => (window.location.href = "個人資料.html");
     }
   } else {
-    // ❌ 未登入 → 顯示登入按鈕，隱藏名稱
+    // ❌ 未登入：顯示登入按鈕，隱藏名稱
     if (loginLink) loginLink.style.display = "inline";
     if (nameDisplay) nameDisplay.style.display = "none";
   }
-});
+}
