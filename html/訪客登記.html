@@ -1,81 +1,48 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>訪客管理系統</title>
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>訪客預約系統 | Access Control</title>
+  <link rel="stylesheet" href="../css/訪客登記.css" />
+  <script defer src="../js/訪客登記.js"></script>
 </head>
+
 <body>
-    <div class="container">
-        <h2>訪客預約</h2>
-        <nav>
-        <button id="home-btn" class="active" onclick="showPage('home')">首頁</button>
-        <button id="features-btn" onclick="showPage('features')">刷卡顯示</button>
-        <button id="about-btn" onclick="showPage('about')">介紹作品</button>
-        <button id="security-btn" onclick="window.open('訪客登記.html', '_blank')">訪客登記</button>
-        <button id="register-btn" onclick="window.open('註冊.html', '_blank')">註冊帳號</button>
-        <button id="query-btn" onclick="window.open('查詢.html', '_blank')">查詢紀錄</button> </nav>
-    <!--<button id="login-btn" onclick="window.open('登入頁面.html', '_blank')">登入頁面</button> </nav>-->
-        <div class="section">
-            <h3>訪客預約</h3>
-            <label for="visitorName">姓名：</label>
-            <input type="text" id="visitorName" placeholder="請輸入訪客姓名">
-            
-            <label for="visitorID">卡片UID：</label>
-            <input type="text" id="visitorID" placeholder="請輸入訪客卡片UID">
-            
-            <button onclick="registerVisitor()">提交預約</button>
-            <p id="visitorMessage"></p>
-        </div>
-    </div>
+  <!-- 🔹 導覽列 -->
+  <header class="navbar">
+    <h1 class="logo">Access Control</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="主頁.html">首頁</a></li>
+        <li><a href="刷卡顯示.html">刷卡顯示</a></li>
+        <li><a href="介紹作品.html">作品介紹</a></li>
+        <li><a href="訪客登記.html" class="active">訪客登記</a></li>
+        <li><a href="查詢.html">查詢紀錄</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <script>
-        const API_BASE_URL = "http://localhost:3000"; // 假設您的 server.js 運行在 3000 端口
-        const API_KEY = "a53d580a-b888-479c-a594-7687c7629285"; // 您的 API Key
+  <!-- 🔹 主容器 -->
+  <main class="container">
+    <h2>訪客預約</h2>
+    <p class="desc">請輸入訪客姓名與卡片 UID 進行預約登記</p>
 
-        async function registerVisitor() {
-            let name = document.getElementById("visitorName").value.trim();
-            let uid = document.getElementById("visitorID").value.trim();
-            const visitorMessage = document.getElementById("visitorMessage");
+    <form id="visitorForm">
+      <label for="visitorName">訪客姓名</label>
+      <input type="text" id="visitorName" placeholder="請輸入姓名" required />
 
-            // 清空之前的訊息
-            visitorMessage.innerText = '';
-            visitorMessage.className = '';
+      <label for="visitorID">卡片 UID</label>
+      <input type="text" id="visitorID" placeholder="請輸入卡片 UID" required />
 
-            if (!name || !uid) {
-                visitorMessage.innerText = "請輸入完整資料！";
-                visitorMessage.classList.add('error');
-                return;
-            }
+      <button type="submit" class="btn-primary">提交預約</button>
+    </form>
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/register-visitor`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-api-key': API_KEY // 在請求頭中包含 API Key
-                    },
-                    body: JSON.stringify({ name: name, uid: uid })
-                });
+    <div id="visitorMessage" class="message hidden"></div>
+  </main>
 
-                const result = await response.json();
-                if (response.ok) {
-                    visitorMessage.innerText = result.message || "預約成功！";
-                    visitorMessage.classList.add('success');
-                    // 清空表單
-                    document.getElementById("visitorName").value = '';
-                    document.getElementById("visitorID").value = '';
-                } else {
-                    visitorMessage.innerText = result.error || result.message || "預約失敗，請重試！";
-                    visitorMessage.classList.add('error');
-                }
-            } catch (error) {
-                console.error('Error registering visitor:', error);
-                visitorMessage.innerText = "無法連接伺服器或發生錯誤！";
-                visitorMessage.classList.add('error');
-            }
-        }
-    </script>
+  <footer>
+    <p>© 2025 truman3309 | IoT Access Control System</p>
+  </footer>
 </body>
 </html>

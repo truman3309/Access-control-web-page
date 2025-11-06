@@ -1,98 +1,77 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>門禁網頁</title>
-  <script src="home.js"></script>
-  <link rel="stylesheet" href="../css/主頁.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>門禁系統首頁 | Access Control System</title>
+  <link rel="stylesheet" href="../css/主頁.css" />
+  <script defer src="../js/home.js"></script>
 </head>
+
 <body>
-  <header>
-    <h1>門禁網頁</h1>
+  <!-- 🔹 導航列 -->
+  <header class="navbar">
+    <h1 class="logo">Access Control</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="主頁.html" class="active" data-page="home">首頁</a></li>
+        <li><a href="刷卡顯示.html" data-page="uid">刷卡顯示</a></li>
+        <li><a href="作品介紹.html" data-page="intro">作品介紹</a></li>
+        <li><a href="訪客登記.html">訪客登記</a></li>
+        <li><a href="登入.html">登入</a></li>
+        <li><a href="查詢.html">查詢紀錄</a></li>
+      </ul>
+      <div class="user-info">
+        <span id="userNameDisplay" class="user-name">載入中...</span>
+      </div>
+    </nav>
   </header>
-  <nav>
-    <button id="home-btn" class="active" onclick="showPage('home')">首頁</button>
-    <button id="features-btn" onclick="showPage('features')">刷卡顯示</button>
-    <button id="about-btn" onclick="showPage('about')">介紹作品</button>
-    <button id="security-btn" onclick="window.open('訪客登記.html', '_blank')">訪客登記</button>
-    <button id="register-btn" onclick="window.open('註冊.html', '_blank')">註冊帳號</button>
-    <button id="query-btn" onclick="window.open('查詢.html', '_blank')">查詢紀錄</button> </nav>
-    <!--<button id="login-btn" onclick="window.open('登入頁面.html', '_blank')">登入頁面</button> </nav>-->
 
-  <div id="home" class="content">
-    <h2>歡迎使用門禁系統</h2>
-    <p>此系統結合了硬體與網頁，提供門禁管理與記錄功能。</p>
-  </div>
+  <!-- 🔹 主內容 -->
+  <main id="content">
+    <!-- 預設顯示首頁內容 -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <h2>歡迎使用門禁系統</h2>
+        <p>本系統整合 ESP32 硬體與雲端 Web 平台，提供即時門禁刷卡紀錄、訪客登記與查詢功能。</p>
+        <button class="btn-primary" id="learnMore">了解更多</button>
+      </div>
 
-  <div id="features" class="content hidden">
-    <h2>刷卡機管理</h2>
-    <h3>最後刷卡 UID</h3>
-    <p><strong id="last-uid">未讀取</strong></p>
-    </div>
+      <div class="card-container">
+        <div class="card">
+          <h3>最後刷卡 UID</h3>
+          <p id="lastUID" class="uid">讀取中...</p>
+          <button class="btn-refresh" id="refreshUID">重新整理</button>
+        </div>
 
-  <div id="about" class="content hidden">
-    <h2>作品介紹</h2>
-    <p>這是一個基於 ESP32 的一些配件如rfid 跟一塊小塊螢幕大概0.94寸
-      那塊小螢幕主要是用來看卡片裡面uid門禁系統，結合硬體與網頁。</p>
-  </div>
+        <div class="card">
+          <h3>系統狀態</h3>
+          <p id="statusText" class="status waiting">等待連線中...</p>
+        </div>
+      </div>
+    </section>
 
-  <script>
-    const API_BASE_URL = "http://localhost:3000"; //  server.js 運行在 3000 端口
-    let intervalId; // 用於儲存 setInterval 的 ID
+    <!-- 刷卡顯示頁 -->
+    <section id="uid" class="page">
+      <h2>刷卡紀錄</h2>
+      <p>這裡將顯示即時刷卡狀態與歷史紀錄。</p>
+    </section>
 
-    function showPage(page) {
-      const pages = ['home', 'features', 'about'];
-      pages.forEach(p => {
-        const element = document.getElementById(p);
-        if (element) element.classList.add('hidden');
-        const btn = document.getElementById(`${p}-btn`);
-        if (btn) btn.classList.remove('active');
-      });
-      const selectedPage = document.getElementById(page);
-      if (selectedPage) selectedPage.classList.remove('hidden');
-      const selectedBtn = document.getElementById(`${page}-btn`);
-      if (selectedBtn) selectedBtn.classList.add('active');
+    <!-- 作品介紹頁 -->
+    <section id="intro" class="page">
+      <h2>作品介紹</h2>
+      <ul class="intro-list">
+        <li><strong>硬體模組：</strong>ESP32、RC522 RFID、0.96 吋 OLED、SD 卡模組</li>
+        <li><strong>前端技術：</strong>HTML5、CSS3、JavaScript</li>
+        <li><strong>後端架構：</strong>Flask / Node.js + MySQL / Google Sheet</li>
+        <li><strong>特色：</strong>即時刷卡顯示、訪客登記、遠端紀錄查詢</li>
+      </ul>
+    </section>
+  </main>
 
-      // 清除之前的自動更新，避免重複啟動
-      if (intervalId) {
-        clearInterval(intervalId);
-        intervalId = null;
-      }
-
-      if (page === 'features') {
-        updateLastUID(); // 當選擇「刷卡顯示」時調用更新 UID
-        intervalId = setInterval(updateLastUID, 2000); // 每 2 秒自動更新
-      }
-    }
-
-    async function updateLastUID() {
-      try {
-        document.getElementById('last-uid').innerText = '讀取中...'; // 讀取中的提示
-        const response = await fetch(`${API_BASE_URL}/get-last-uid`);
-        if (response.ok) {
-          const data = await response.json();
-          document.getElementById('last-uid').innerText = data.uid || '無記錄';
-        } else {
-          const errorData = await response.json();
-          document.getElementById('last-uid').innerText = errorData.uid || '無法讀取 UID'; // 顯示伺服器錯誤訊息
-          // 如果伺服器回應錯誤，可以考慮停止自動更新
-          clearInterval(intervalId);
-          intervalId = null;
-          console.error("Server responded with an error:", errorData.error);
-        }
-      } catch (error) {
-        console.error('Error fetching last UID:', error);
-        document.getElementById('last-uid').innerText = '無法連接伺服器或發生錯誤';
-        // 如果無法連接，停止自動更新
-        clearInterval(intervalId);
-        intervalId = null;
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      showPage('home'); // 預設顯示首頁
-    });
-  </script>
+  <!-- 🔹 頁尾 -->
+  <footer>
+    <p>© 2025 truman3309 | IoT Access Control System</p>
+  </footer>
 </body>
 </html>

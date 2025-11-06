@@ -1,144 +1,51 @@
-// === main.js ===
+// === 導航切換 ===
+document.querySelectorAll('.nav-links a[data-page]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const pageId = link.getAttribute('data-page');
 
-// ============================
-// 基本設定
-// ============================
-const API_BASE_URL = "http://localhost:3000"; // 伺服器端點
-let intervalId = null; // 用來儲存 setInterval 的 ID
+    // 切換 active 樣式
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    link.classList.add('active');
 
-
-// ============================
-// 初始化頁面
-// ============================
-function initPage() {
-  // 頁面載入完成後執行
-  document.addEventListener('DOMContentLoaded', function () {
-    showPage('home'); // 預設顯示首頁
-    bindNavButtons(); // 綁定導覽列按鈕事件
+    // 顯示對應頁面
+    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
   });
-}
+});
 
-
-// ============================
-// 綁定導覽列按鈕事件
-// ============================
-function bindNavButtons() {
-  const navButtons = document.querySelectorAll('nav button');
-  navButtons.forEach(button => {
-    button.addEventListener('click', function () {
-      const targetId = this.id.replace('-btn', '');
-      if (['home', 'features', 'about'].includes(targetId)) {
-        showPage(targetId);
-      }
-    });
-  });
-}
-
-
-// ============================
-// 顯示指定的頁面
-// ============================
-function showPage(page) {
-  const pages = ['home', 'features', 'about'];
-
-  // 隱藏所有頁面並取消 active 樣式
-  pages.forEach(p => {
-    const content = document.getElementById(p);
-    const button = document.getElementById(`${p}-btn`);
-    if (content) content.classList.add('hidden');
-    if (button) button.classList.remove('active');
-  });
-
-  // 顯示被選中的頁面並加上 active 樣式
-  const selectedContent = document.getElementById(page);
-  const selectedButton = document.getElementById(`${page}-btn`);
-  if (selectedContent) selectedContent.classList.remove('hidden');
-  if (selectedButton) selectedButton.classList.add('active');
-
-  // 清除前一次自動更新
-  stopAutoUpdate();
-
-  // 若是刷卡顯示頁面，啟動自動更新 UID
-  if (page === 'features') {
-    startAutoUpdate();
-  }
-}
-
-
-// ============================
-// 啟動自動更新 UID
-// ============================
-function startAutoUpdate() {
-  updateLastUID(); // 立即執行一次
-  intervalId = setInterval(updateLastUID, 2000); // 每 2 秒自動更新
-}
-
-
-// ============================
-// 停止自動更新 UID
-// ============================
-function stopAutoUpdate() {
-  if (intervalId) {
-    clearInterval(intervalId);
-    intervalId = null;
-  }
-}
-
-
-// ============================
-// 從伺服器取得最後 UID
-// ============================
-async function updateLastUID() {
-  const uidElement = document.getElementById('last-uid');
-  if (!uidElement) return;
-
-  uidElement.innerText = '讀取中...';
+// === 模擬取得 UID 資料 ===
+async function fetchUID() {
+  const uidEl = document.getElementById('lastUID');
+  const statusEl = document.getElementById('statusText');
 
   try {
-    const response = await fetch(`${API_BASE_URL}/get-last-uid`);
-    if (!response.ok) {
-      handleFetchError(response.status);
-      return;
-    }
+    statusEl.textContent = "連線中...";
+    statusEl.className = "status waiting";
 
-    const data = await response.json();
-    displayUID(data.uid || '無記錄');
-  } catch (error) {
-    handleConnectionError(error);
+    // 這裡可以改成實際後端 API
+    // const res = await fetch("https://你的伺服器/get-last-uid");
+    // const data = await res.json();
+
+    // 模擬 API 回傳
+    await new Promise(r => setTimeout(r, 1000));
+    const data = { uid: "04A3B7C129" };
+
+    uidEl.textContent = data.uid;
+    statusEl.textContent = "資料同步成功";
+    statusEl.className = "status connected";
+  } catch (err) {
+    uidEl.textContent = "未讀取";
+    statusEl.textContent = "連線錯誤";
+    statusEl.className = "status error";
   }
 }
 
+// === 綁定按鈕 ===
+document.getElementById('refreshUID').addEventListener('click', fetchUID);
+document.addEventListener('DOMContentLoaded', fetchUID);
 
-// ============================
-// 顯示 UID
-// ============================
-function displayUID(uidText) {
-  const uidElement = document.getElementById('last-uid');
-  if (uidElement) uidElement.innerText = uidText;
-}
-
-
-// ============================
-// 錯誤處理：伺服器錯誤
-// ============================
-function handleFetchError(statusCode) {
-  console.error(`伺服器回應錯誤: ${statusCode}`);
-  displayUID('無法讀取 UID');
-  stopAutoUpdate();
-}
-
-
-// ============================
-// 錯誤處理：連線失敗
-// ============================
-function handleConnectionError(error) {
-  console.error('❌ 無法連接伺服器:', error);
-  displayUID('無法連接伺服器');
-  stopAutoUpdate();
-}
-
-
-// ============================
-// 啟動整體流程
-// ============================
-initPage();
+// === 按鈕事件 ===
+document.getElementById('learnMore').addEventListener('click', () => {
+  document.querySelector('[data-page="intro"]').click();
+});
