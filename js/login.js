@@ -20,6 +20,24 @@ function handleLogin(event) {
   if (username === "admin" && password === "1234") {
     msg.textContent = "登入成功，正在跳轉...";
     msg.classList.add("success");
+    // 🔹 取得當下時間（格式化）
+    const now = new Date();
+    const formattedTime = now.toLocaleString("zh-TW", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    // 🔹 儲存登入資訊到 localStorage
+    localStorage.setItem("userName", username);
+    localStorage.setItem("lastLogin", formattedTime);
+
+    // 🔹 顯示在畫面上（若當前頁面有）
+    if (lastLoginEl) {
+      lastLoginEl.textContent = `上次登入時間：${formattedTime}`;
+    }
 
     // 延遲跳轉（模擬載入）
     setTimeout(() => {
