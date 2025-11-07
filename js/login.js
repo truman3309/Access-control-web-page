@@ -37,7 +37,7 @@ function handleLogin(event) {
     // 延遲跳轉
     setTimeout(() => {
       window.location.href = "../html/主頁.html";
-    }, 1000);
+    });
   } else {
     msg.textContent = "帳號或密碼錯誤，請重新輸入。";
     msg.classList.add("error");
