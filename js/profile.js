@@ -13,7 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("userRole").textContent = `角色：${userData.role}`;
   document.getElementById("lastLogin").textContent = `上次登入時間：${userData.lastLogin}`;
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const lastLoginEl = document.getElementById("lastLogin");
 
+  // 從 localStorage 取得登入時間
+  const lastLogin = localStorage.getItem("lastLogin");
+
+  if (lastLoginEl) {
+    if (lastLogin) {
+      lastLoginEl.textContent = `上次登入時間：${lastLogin}`;
+    } else {
+      lastLoginEl.textContent = "上次登入時間：尚未登入";
+    }
+  }
+});
 // 修改資料按鈕
 function editProfile() {
   alert(" 修改資料功能尚未開放！");
