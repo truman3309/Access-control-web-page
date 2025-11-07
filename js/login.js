@@ -19,17 +19,15 @@ function handleLogin(event) {
   // === 模擬登入驗證（未串接後端時可用） ===
   if (username === "admin" && password === "1234") {
     msg.textContent = "登入成功，正在跳轉...";
-    msg.classList.add("success");
-    // 🔹 取得當下時間（格式化）
-    const now = new Date();
-    const formattedTime = now.toLocaleString("zh-TW", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-
+   
+   const now = new Date();
+  const formattedTime = now.toLocaleString("zh-TW", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
     // 🔹 儲存登入資訊到 localStorage
     localStorage.setItem("userName", username);
     localStorage.setItem("lastLogin", formattedTime);
