@@ -56,29 +56,27 @@ document.addEventListener("DOMContentLoaded", () => {
     let firstClick = true; // 第一次點擊 → 進入個人資料
     nameDisplay.addEventListener("click", () => {
       if (firstClick) {
-        // 第一次點擊：進入個人資料頁
         window.location.href = "個人基本資料.html";
         firstClick = false;
 
-        // 3 秒內再次點擊才會顯示登出提示
+        // 三秒內再次點擊才會顯示登出確認
         setTimeout(() => {
           firstClick = true;
         }, 3000);
       } else {
-        // 第二次（3 秒內）點擊：顯示登出確認
         const confirmLogout = confirm(`是否要登出帳號「${userName}」？`);
         if (confirmLogout) {
-          localStorage.removeItem("userName"); // 清除登入資訊
+          localStorage.removeItem("userName");
           alert("您已成功登出！");
-          window.location.href = "登入.html"; // 回登入頁
+          window.location.href = "登入.html";
         }
       }
     });
   }
 } else {
-  // ❌ 未登入：顯示登入按鈕、隱藏名稱
   if (loginLink) loginLink.style.display = "inline";
   if (nameDisplay) nameDisplay.style.display = "none";
 }
+
 
 });
