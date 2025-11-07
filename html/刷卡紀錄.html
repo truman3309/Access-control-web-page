@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>刷卡紀錄 | Access Control</title>
+  <link rel="stylesheet" href="../css/刷卡顯示.css">
+  <script defer src="../js/刷卡顯示.js"></script>
+</head>
+<body>
+  <!-- 🔹 導覽列 -->
+  <header class="navbar">
+    <h1 class="logo">Access Control</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="主頁.html">首頁</a></li>
+        <li><a href="刷卡紀錄.html" class="active">刷卡顯示</a></li>
+        <li><a href="作品介紹.html">作品介紹</a></li>
+        <li><a href="訪客登記.html">訪客登記</a></li>
+        <li><a href="查詢.html">查詢紀錄</a></li>
+        <li><a href="登入.html" class="login-link">登入</a></li>
+        <li><a id="userNameDisplay" class="user-name"></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 🔹 主內容 -->
+  <main class="container">
+    <section class="card-log">
+      <h2>刷卡紀錄</h2>
+      <p>以下顯示即時刷卡狀態與歷史紀錄。</p>
+
+      <div id="statusArea" class="status-box">等待刷卡...</div>
+
+      <table id="recordTable">
+        <thead>
+          <tr>
+            <th>卡號 (UID)</th>
+            <th>時間</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody id="recordBody">
+          <tr><td colspan="3" style="text-align:center;">目前沒有資料</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
