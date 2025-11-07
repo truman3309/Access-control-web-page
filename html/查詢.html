@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>進出紀錄與異常報告 | Access Control</title>
+  <link rel="stylesheet" href="../css/查詢.css" />
+  <script defer src="../js/查詢.js"></script>
+</head>
+
+<body>
+  <!-- 🔹 導覽列 -->
+  <header class="navbar">
+    <h1 class="logo">Access Control</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="主頁.html">首頁</a></li>
+        <li><a href="刷卡顯示.html">刷卡顯示</a></li>
+        <li><a href="介紹作品.html">作品介紹</a></li>
+        <li><a href="訪客登記.html">訪客登記</a></li>
+        <li><a href="查詢.html" class="active">查詢紀錄</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 🔹 主內容 -->
+  <main class="container">
+    <h2>進出紀錄查詢</h2>
+
+    <div class="search-bar">
+      <input type="text" id="searchQuery" placeholder="輸入姓名或卡片 UID..." />
+      <button id="searchBtn">查詢</button>
+    </div>
+
+    <div class="table-container">
+      <table id="recordsTable">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>卡片UID</th>
+            <th>時間</th>
+            <th>類型</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="5" class="loading">資料載入中...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="report-section">
+      <h3>異常事件報告</h3>
+      <button id="reportBtn">生成報告</button>
+      <div id="reportContainer" class="report-box"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 truman3309 | IoT Access Control System</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,129 @@
+## **資料庫架構設計**
+
+### 1. `users` – 使用者帳號資料表
+
+**用途**：儲存系統登入的使用者帳號與密碼。
+**對應程式碼**：
+
+```sql
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+**欄位**：
+
+| 欄位名稱         | 型態           | 限制條件                | 預設值                | 說明            |
+| ------------ | ------------ | ------------------- | ------------------ | ------------- |
+| `id`         | INT          | PK, AUTO\_INCREMENT |                    | 使用者唯一 ID      |
+| `username`   | VARCHAR(50)  | NOT NULL            |                    | 使用者帳號         |
+| `password`   | VARCHAR(255) | NOT NULL            |                    | 使用者密碼（建議加密儲存） |
+| `created_at` | TIMESTAMP    |                     | CURRENT\_TIMESTAMP | 建立時間          |
+
+---
+
+### 2. `USER_CORD` – 卡片 UID 紀錄表
+
+**用途**：儲存單純的卡片 UID（未綁定使用者）。
+**對應程式碼**：
+
+```sql
+CREATE TABLE USER_CORD (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    CORD_NUMBER VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+**欄位**：
+
+| 欄位名稱          | 型態           | 限制條件                | 預設值                | 說明        |
+| ------------- | ------------ | ------------------- | ------------------ | --------- |
+| `id`          | INT          | PK, AUTO\_INCREMENT |                    | 卡片紀錄唯一 ID |
+| `CORD_NUMBER` | VARCHAR(255) | NOT NULL            |                    | 卡片 UID    |
+| `created_at`  | TIMESTAMP    |                     | CURRENT\_TIMESTAMP | 建立時間      |
+
+---
+
+### 3. `AccessRecords` – 進出紀錄表
+
+**用途**：記錄訪客或使用者的進出事件。
+**對應程式碼**：
+
+```sql
+CREATE TABLE AccessRecords (
+    RecordID INT AUTO_INCREMENT PRIMARY KEY,            
+    VisitorName VARCHAR(100) NULL,                      
+    UID VARCHAR(50) NOT NULL,                            
+    AccessTime DATETIME NOT NULL,                         
+    AccessType VARCHAR(50) NOT NULL DEFAULT '刷卡',      
+    Status VARCHAR(50) NOT NULL DEFAULT '正常'           
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
+
+**欄位**：
+
+| 欄位名稱          | 型態           | 限制條件                | 預設值  | 說明         |
+| ------------- | ------------ | ------------------- | ---- | ---------- |
+| `RecordID`    | INT          | PK, AUTO\_INCREMENT |      | 紀錄唯一 ID    |
+| `VisitorName` | VARCHAR(100) | NULL                |      | 訪客姓名（允許空值） |
+| `UID`         | VARCHAR(50)  | NOT NULL            |      | 卡片 UID     |
+| `AccessTime`  | DATETIME     | NOT NULL            |      | 進出時間       |
+| `AccessType`  | VARCHAR(50)  | NOT NULL            | '刷卡' | 進出方式       |
+| `Status`      | VARCHAR(50)  | NOT NULL            | '正常' | 狀態         |
+
+---
+
+### 4. `cards` – 卡片資料表（檢查卡片是否有效）
+
+**用途**：儲存卡片 UID 與狀態，驗證是否可使用。
+**對應程式碼**：
+
+```sql
+CREATE TABLE cards (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    card_uid VARCHAR(50) NOT NULL UNIQUE,
+    status ENUM('active', 'inactive') DEFAULT 'active',
+    issued_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+**欄位**：
+
+| 欄位名稱        | 型態                        | 限制條件                | 預設值                | 說明      |
+| ----------- | ------------------------- | ------------------- | ------------------ | ------- |
+| `id`        | INT                       | PK, AUTO\_INCREMENT |                    | 卡片唯一 ID |
+| `card_uid`  | VARCHAR(50)               | NOT NULL, UNIQUE    |                    | 卡片 UID  |
+| `status`    | ENUM('active','inactive') |                     | 'active'           | 卡片狀態    |
+| `issued_at` | TIMESTAMP                 |                     | CURRENT\_TIMESTAMP | 發卡時間    |
+
+---
+
+### 5. `visitors` – 訪客預約資料表
+
+**用途**：儲存訪客的預約紀錄，需對應到 `cards` 表中的有效卡片。
+**對應程式碼**：
+
+```sql
+CREATE TABLE visitors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    card_uid VARCHAR(50) NOT NULL,
+    reserved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (card_uid) REFERENCES cards(card_uid)
+);
+```
+
+**欄位**：
+
+| 欄位名稱          | 型態           | 限制條件                            | 預設值                | 說明         |
+| ------------- | ------------ | ------------------------------- | ------------------ | ---------- |
+| `id`          | INT          | PK, AUTO\_INCREMENT             |                    | 預約唯一 ID    |
+| `name`        | VARCHAR(100) | NOT NULL                        |                    | 訪客姓名       |
+| `card_uid`    | VARCHAR(50)  | NOT NULL, FK → `cards.card_uid` |                    | 預約使用卡片 UID |
+| `reserved_at` | TIMESTAMP    |                                 | CURRENT\_TIMESTAMP | 預約建立時間     |
+
+---

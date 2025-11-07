@@ -1,0 +1,125 @@
+/* === 全域設定 === */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Noto Sans TC", Arial, sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+/* === 導覽列 === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0056b3;
+  color: #fff;
+  padding: 14px 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.logo { font-size: 1.4rem; font-weight: bold; }
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav-links a.active,
+.nav-links a:hover {
+  color: #ffdf5d;
+}
+
+/* === 主容器 === */
+.container {
+  max-width: 1000px;
+  margin: 50px auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* === 搜尋區 === */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.search-bar button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.search-bar button:hover { background-color: #0056b3; }
+
+/* === 表格 === */
+.table-container {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+}
+th {
+  background-color: #007bff;
+  color: white;
+}
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+.loading {
+  text-align: center;
+  color: #666;
+}
+
+/* === 報告區 === */
+.report-section {
+  margin-top: 30px;
+  text-align: center;
+}
+.report-section button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.report-section button:hover {
+  background-color: #218838;
+}
+.report-box {
+  margin-top: 20px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 6px;
+  padding: 15px;
+  color: #856404;
+  text-align: left;
+}
+
+/* === 頁尾 === */
+footer {
+  text-align: center;
+  background-color: #0056b3;
+  color: white;
+  padding: 12px;
+  margin-top: 50px;
+}

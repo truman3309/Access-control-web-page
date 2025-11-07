@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>門禁系統首頁 | Access Control System</title>
+  <link rel="stylesheet" href="../css/主頁.css" />
+  <script defer src="../js/home.js"></script>
+</head>
+
+<body>
+  <!-- 🔹 導航列 -->
+  <header class="navbar">
+    <h1 class="logo">Access Control</h1>
+    <nav>
+      <ul class="nav-links">
+         <li><a href="主頁.html" class="active" data-page="home"> 首頁</a></li>
+      <li><a href="刷卡顯示.html" data-page="uid">刷卡顯示</a></li>
+      <li><a href="作品介紹.html" data-page="intro">作品介紹</a></li>
+      <li><a href="訪客登記.html"> 訪客登記</a></li>
+      <li><a href="查詢.html"> 查詢紀錄</a></li>
+
+      <li class="user-area">
+        <span id="userNameDisplay" class="user-name"></span>
+        <a href="登入.html" class="login-link"> 登入</a>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 🔹 主內容 -->
+  <main id="content">
+    <!-- 預設顯示首頁內容 -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <h2>歡迎使用門禁系統</h2>
+        <p>本系統整合 ESP32 硬體與雲端 Web 平台，提供即時門禁刷卡紀錄、訪客登記與查詢功能。</p>
+        <button class="btn-primary" id="learnMore">了解更多</button>
+      </div>
+
+      <div class="card-container">
+        <div class="card">
+          <h3>最後刷卡 UID</h3>
+          <p id="lastUID" class="uid">讀取中...</p>
+          <button class="btn-refresh" id="refreshUID">重新整理</button>
+        </div>
+
+        <div class="card">
+          <h3>系統狀態</h3>
+          <p id="statusText" class="status waiting">等待連線中...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 刷卡顯示頁 -->
+    <section id="uid" class="page">
+      <h2>刷卡紀錄</h2>
+      <p>這裡將顯示即時刷卡狀態與歷史紀錄。</p>
+    </section>
+
+    <!-- 作品介紹頁 -->
+    <section id="intro" class="page">
+      <h2>作品介紹</h2>
+      <ul class="intro-list">
+        <li><strong>硬體模組：</strong>ESP32、RC522 RFID、0.96 吋 OLED、SD 卡模組</li>
+        <li><strong>前端技術：</strong>HTML5、CSS3、JavaScript</li>
+        <li><strong>後端架構：</strong>Flask / Node.js + MySQL / Google Sheet</li>
+        <li><strong>特色：</strong>即時刷卡顯示、訪客登記、遠端紀錄查詢</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- 🔹 頁尾 -->
+  <footer>
+    <p>© 2025 truman3309 | IoT Access Control System</p>
+  </footer>
+</body>
+</html>

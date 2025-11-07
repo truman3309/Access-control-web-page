@@ -1,0 +1,146 @@
+/* === 全域設定 === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Noto Sans TC", Arial, sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* === 導覽列 === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0056b3;
+  color: #fff;
+  padding: 14px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+}
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: #ffdf5d;
+}
+
+/* === 主容器 === */
+.container {
+  max-width: 500px;
+  margin: 60px auto;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: left;
+}
+h2 {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+.desc {
+  text-align: center;
+  color: #666;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+}
+
+/* === 表單 === */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 18px;
+  transition: border-color 0.3s;
+}
+input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+.btn-primary {
+  width: 100%;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.05rem;
+  transition: background-color 0.3s;
+}
+.btn-primary:hover {
+  background-color: #218838;
+}
+
+/* === 提示訊息 === */
+.message {
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+.message.hidden {
+  display: none;
+}
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* === 頁尾 === */
+footer {
+  text-align: center;
+  background-color: #0056b3;
+  color: white;
+  padding: 14px;
+  margin-top: 50px;
+  font-size: 0.9rem;
+}
+
+/* === RWD 響應式 === */
+@media (max-width: 600px) {
+  .container {
+    margin: 30px 16px;
+    padding: 24px;
+  }
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

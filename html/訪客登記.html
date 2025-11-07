@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>訪客預約系統 | Access Control</title>
+  <link rel="stylesheet" href="../css/訪客登記.css" />
+  <script defer src="../js/訪客登記.js"></script>
+</head>
+
+<body>
+  <!-- 🔹 導覽列 -->
+  <header class="navbar">
+    <h1 class="logo">Access Control</h1>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="主頁.html">首頁</a></li>
+        <li><a href="刷卡顯示.html">刷卡顯示</a></li>
+        <li><a href="介紹作品.html">作品介紹</a></li>
+        <li><a href="訪客登記.html" class="active">訪客登記</a></li>
+        <li><a href="查詢.html">查詢紀錄</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 🔹 主容器 -->
+  <main class="container">
+    <h2>訪客預約</h2>
+    <p class="desc">請輸入訪客姓名與卡片 UID 進行預約登記</p>
+
+    <form id="visitorForm">
+      <label for="visitorName">訪客姓名</label>
+      <input type="text" id="visitorName" placeholder="請輸入姓名" required />
+
+      <label for="visitorID">卡片 UID</label>
+      <input type="text" id="visitorID" placeholder="請輸入卡片 UID" required />
+
+      <button type="submit" class="btn-primary">提交預約</button>
+    </form>
+
+    <div id="visitorMessage" class="message hidden"></div>
+  </main>
+
+  <footer>
+    <p>© 2025 truman3309 | IoT Access Control System</p>
+  </footer>
+</body>
+</html>
