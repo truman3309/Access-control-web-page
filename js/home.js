@@ -77,6 +77,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (loginLink) loginLink.style.display = "inline";
   if (nameDisplay) nameDisplay.style.display = "none";
 }
+function toggleIntro() {
+  const list = document.getElementById("introContent");
+  const btn = document.querySelector(".toggle-btn");
+
+  if (list.classList.contains("hidden")) {
+    list.classList.remove("hidden");
+    btn.textContent = "▲ 收合";
+  } else {
+    list.classList.add("hidden");
+    btn.textContent = "▼ 展開";
+  }
+}
 
 
 });

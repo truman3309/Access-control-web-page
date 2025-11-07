@@ -1,80 +1,33 @@
-/* === 全域設定 === */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Noto Sans TC", Arial, sans-serif;
-  background-color: #f4f7fa;
-  color: #333;
-  line-height: 1.6;
-}
-
-/* === Header === */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 25px;
-  background-color: #007bff;
-  color: white;
-}
-
-/* === 導覽列 === */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #0056b3;
-  color: #fff;
-  padding: 12px 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.logo {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #fff;
-  letter-spacing: 0.5px;
-}
-
 /* === 導覽連結區 === */
 .nav-links {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px; /* 原本是 20px，微調縮小整體間距 */
   margin: 0;
   padding: 0;
 }
 
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-  padding: 6px 10px;
-  border-radius: 4px;
+.nav-links li {
+  display: flex;
+  align-items: center;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
-  color: #ffdf5d;
+/* 🔹 特別縮小登入與查詢之間的距離 */
+.nav-links .login-link {
+  margin-left: -4px; /* 往左靠近上一個項目 */
 }
 
 /* === 使用者區塊（登入 / 名稱顯示） === */
 .user-area {
-  margin-left: 20px;
+  margin-left: 10px; /* 原本 20px，縮短距離 */
   display: flex;
   align-items: center;
-  min-width: 120px; /* 固定寬度避免切換時晃動 */
+  min-width: 100px;
   justify-content: flex-end;
-  position: relative;
 }
 
-/* 預設隱藏，登入後用 JS 顯示 */
+/* 登入與名稱樣式 */
 .user-name {
   display: none;
   color: #ffdf5d;
@@ -93,125 +46,9 @@ header {
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
+  padding-right: 6px; /* 稍微減少右側空間 */
 }
 
 .login-link:hover {
   color: #ffdf5d;
-}
-
-/* === 主內容區 === */
-main {
-  padding: 40px 20px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-/* === 動態頁面切換 === */
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-  animation: fadeIn 0.6s ease;
-}
-
-/* === Hero 區塊 === */
-.hero {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.btn-primary {
-  margin-top: 15px;
-  padding: 10px 24px;
-  background-color: #007bff;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-/* === 卡片區 === */
-.card-container {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.card {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.card h3 {
-  color: #007bff;
-  margin-bottom: 12px;
-}
-
-.uid {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.btn-refresh {
-  background-color: #ffdf5d;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.btn-refresh:hover {
-  background-color: #f5c93d;
-}
-
-.status.waiting {
-  color: #999;
-}
-.status.connected {
-  color: #28a745;
-}
-.status.error {
-  color: #dc3545;
-}
-
-/* === 作品介紹 === */
-.intro-list {
-  list-style: none;
-  line-height: 2;
-  margin-top: 20px;
-}
-
-/* === 頁尾 === */
-footer {
-  text-align: center;
-  background-color: #0056b3;
-  color: white;
-  padding: 16px;
-  margin-top: 40px;
-}
-
-/* === 淡入動畫 === */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
