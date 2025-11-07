@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const userName = localStorage.getItem("userName"); // 從 localStorage 抓登入名稱
 
   if (userName) {
-<<<<<<< HEAD
   // ✅ 已登入：顯示名稱、隱藏登入按鈕
   if (loginLink) loginLink.style.display = "none";
 
@@ -67,27 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
       } else {
         // 第二次（3 秒內）點擊：顯示登出確認
-=======
-    // ✅ 已登入：顯示名稱、隱藏登入按鈕
-    if (loginLink) loginLink.style.display = "none";
-
-    if (nameDisplay) {
-      nameDisplay.textContent = userName;
-      nameDisplay.style.display = "inline";
-      nameDisplay.style.color = "#ffdf5d";
-      nameDisplay.style.fontWeight = "bold";
-      nameDisplay.style.cursor = "pointer";
-      nameDisplay.title = "查看個人資料 / 登出";
-
-      // === 🧩 點擊名稱時跳出登出確認 ===
-      nameDisplay.addEventListener("click", () => {
->>>>>>> f126542c8cd5b2e11db5ceec4598b5c6be9bd8c3
         const confirmLogout = confirm(`是否要登出帳號「${userName}」？`);
         if (confirmLogout) {
           localStorage.removeItem("userName"); // 清除登入資訊
           alert("您已成功登出！");
           window.location.href = "登入.html"; // 回登入頁
-<<<<<<< HEAD
         }
       }
     });
@@ -98,16 +81,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (nameDisplay) nameDisplay.style.display = "none";
 }
 
-=======
-        } else {
-          window.location.href = "個人資料.html"; // 取消則前往個人資料
-        }
-      });
-    }
-  } else {
-    // ❌ 未登入：顯示登入按鈕、隱藏名稱
-    if (loginLink) loginLink.style.display = "inline";
-    if (nameDisplay) nameDisplay.style.display = "none";
-  }
->>>>>>> f126542c8cd5b2e11db5ceec4598b5c6be9bd8c3
 });
